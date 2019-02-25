@@ -1,2 +1,9 @@
 # expressOKR
 探月 OKR 项目需求
+
+登录的API接口为：http://localhost:3000/api/login
+
+跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
+
+数据库的文件在sql文件夹下
+
