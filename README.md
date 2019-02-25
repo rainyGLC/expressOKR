@@ -15,4 +15,9 @@
 数据库的文件在sql文件夹下
 
 
+启动 npm install 
+    npm start
+    
+
+
 
