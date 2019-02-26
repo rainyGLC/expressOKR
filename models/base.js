@@ -13,6 +13,7 @@ class Base {
     })
   }
   select(params) {
+    console.log(params);
     return new Promise((reslove,reject)=>{
       knex(this.table).where(params).select()
       .then( res => {

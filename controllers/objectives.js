@@ -31,18 +31,6 @@ const objectivesController = {
       res.json({code:0,data:e})
     }
   },
-  show:async function(req,res,next){
-    let token = req.body.token;
-    console.log(token);
-    let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
-    console.log(user_id);
-    const 
-
-
-
-  },
-  showId:async function(req,res,next){
-
-  }
+  
 }
 module.exports = objectivesController;
