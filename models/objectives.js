@@ -7,7 +7,7 @@ class Objectives extends Base {
     super(props)
   }
   // showAll(params){
-  //   return Knex(TABLE).select('objectives.id','objective_id')
+  //   return Knex(TABLE).select('objectives.id','objective_id','=',)
   // }
   // showAll(params){
   //   return Knex(TABLE).leftJoin('keyresults','objectives.id','=','objective_id')
