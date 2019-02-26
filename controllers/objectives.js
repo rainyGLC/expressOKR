@@ -10,6 +10,7 @@ const objectivesController = {
     let deadline = req.body.deadline;
     let token = req.body.token;
     let keyresult = req.body.keyresult;
+    console.log(objective,deadline,token,keyresult)
     if(!objective || !deadline || !token || !keyresult){
       res.json({code:0,data:'params empty!'});
       return
@@ -43,7 +44,7 @@ const objectivesController = {
   //   }catch(e){
   //     res.json({code:0,data:e})
   //   }
-  },
+  // },
   // showId:async function(req,res,next){
 
   // }
