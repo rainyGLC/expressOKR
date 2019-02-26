@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('*', cors.allowAll)
+app.use('*', cors.allowAll)//设置全局跨域,所有的api都允许跨域
 app.use('/', indexRouter);
 app.use('/api',apiRouter);
 

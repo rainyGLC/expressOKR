@@ -1,4 +1,5 @@
-const User = require('./../models/user.js');
+const UserModel = require('./../models/user.js');
+const User = new UserModel();
 const authCodeFunc = require('./../utils/authCode.js');
 
 const authController = {
@@ -14,7 +15,7 @@ const authController = {
       const users = await User.select({name,password});
       const user = users[0];
       if(user){
-        let auth_Code = name + '\t' + password + '\t' +user.id;
+        let auth_Code = name + '\t' + password + '\t' + user.id;
         auth_Code = authCodeFunc(auth_Code,'ENCODE');
         res.cookie('ac',auth_Code,{maxAge: 24 * 60 * 60 * 1000, httponly:true});
         res.json({code:200,message:'登录成功!',token:auth_Code})
@@ -23,9 +24,7 @@ const authController = {
         res.json({code:0,data:{msg:'登录失败，没有此用户'}})
       }
      }catch(e){
-      console.log(e)
       res.json({code:0,data:e})
-
      }
   }
 }

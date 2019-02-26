@@ -9,6 +9,8 @@
     "token": "077a30ac140a35bd63fbea9076863a0b"
 }
 
+添加的接口：http://localhost:3000/api/okr
+
 
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
 
@@ -16,7 +18,7 @@
 
 
 启动 npm install 
-    npm start
+    node ./bin/www
     
 
 
