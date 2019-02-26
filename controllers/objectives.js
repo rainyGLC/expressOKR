@@ -9,12 +9,12 @@ const objectivesController = {
     let objective = req.body.objective;
     let deadline = req.body.deadline;
     let token = req.body.token;
-    let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     let keyresult = req.body.keyresult;
-    if(!objective || !deadline || !user_id || !keyresult){
+    if(!objective || !deadline || !token || !keyresult){
       res.json({code:0,data:'params empty!'});
       return
     }
+    let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     try{
       const objectives = await Objective.insert({objective,deadline,user_id});
       let objective_id = objectives[0];
@@ -43,7 +43,7 @@ const objectivesController = {
   //   }catch(e){
   //     res.json({code:0,data:e})
   //   }
-  // },
+  },
   // showId:async function(req,res,next){
 
   // }
