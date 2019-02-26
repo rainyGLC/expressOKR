@@ -32,19 +32,17 @@ const objectivesController = {
       res.json({code:0,data:e})
     }
   },
-  // show:async function(req,res,next){
-  //   let user_id = req.body.user_id;
-  //   console.log(user_id);
-  //   let token = req.body.token;
-  //   let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
-  //   try{
-  //     const objectives = await Objective.select({user_id});
-  //     console.log(objectives);
-  //     res.json({code:200,message:'ok'})
-  //   }catch(e){
-  //     res.json({code:0,data:e})
-  //   }
-  // },
+  show:async function(req,res,next){
+    try{
+      let token = req.body.token;
+      let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
+      const objectives = await Objective.select({user_id});
+      console.log(objectives);
+      res.json({code:200,message:'ok'})
+    }catch(e){
+      res.json({code:0,data:e})
+    }
+  },
   // showId:async function(req,res,next){
 
   // }
