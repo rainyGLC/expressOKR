@@ -6,20 +6,11 @@ class Objectives extends Base {
   constructor(props ='objectives'){
     super(props)
   }
-  // showAll(params){
-  //   return Knex(TABLE).where(params.user_id).select('id','user_id','objectives','deadline').
-  // }
-  // showAll(params){
+  // selectId(params){
   //   return Knex(TABLE).leftJoin('keyresults','objectives.id','=','objective_id')
-  //   .select({user_id:'objectives.user_id'},'objectives.id','objectives.objective','objectives.deadline',
+  //   .select({id:'objectives.id'},'objectives.objective','objectives.deadline',
   //   {'objective_id':'keyresults.objective_id'},{'keyresult':'keyresults.keyresult'})
-  //   .where({'objectives.user_id':params.user_id})
-  // }
-  // showOwn(params){
-  //   return Knex(TABLE).leftJoin('keyresults','objectives.id','=', 'objective_id')
-  //   .select('objectives.id','objectives.objective','objectives.deadline',
-  //   {'objective_id':'keyresults.objective_id'},{'keyresult':'keyresults.keyresult'})
-  //   .where()
+  //   .where({'objectives.id':params.id})
   // }
 }
 module.exports = Objectives;
