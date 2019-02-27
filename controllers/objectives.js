@@ -45,9 +45,7 @@ const objectivesController = {
   showId:async function(req,res,next){
     try{
       let id = req.params.id;
-      console.log(id)
       const objectives = await Objective.selectId({id});
-      console.log(objectives);
       let objective = '';
       let deadline = '';
       let keyresults = [];
@@ -63,11 +61,8 @@ const objectivesController = {
         deadline:deadline,
         keyresults:keyresults
       }
-      console.log(showData)
-
       res.json({code:200,data:showData})
     }catch(e){
-       console.log(e);
       res.json({code:0,data:e})
     }
   },
@@ -75,21 +70,23 @@ const objectivesController = {
     let id = req.params.id;
     let objective = req.body.objective;
     let deadline = req.body.deadline;
-    let keyresult = req.body.keyresult;
-    let token = req.body.token;
-    if(!objective || !deadline ||!token ||!keyresult){
+    let keyresults = req.body.keyresults;
+    let keyresultId = keyresults[0].id;
+    let keyresult = keyresults[0].keyresult;
+    if(!objective || !deadline ||!keyresults){
       res.json({code:0,data:'params empty!'});
       return
     }
     try{
       const objectives = await Objective.update(id,{objective,deadline});
-      const keyresulssts = await Keyresult.update(id,{updateData})
+      console.log(objectives);
+      const keyResult = await Keyresult.update(keyresultId,{keyresult});
+      console.log(keyResult);
       res.json({code:200,message:'ok'})
     }catch(e){
       console.log(e)
       res.json({code:0,data:e})
     }
   }
-  
 }
 module.exports = objectivesController;

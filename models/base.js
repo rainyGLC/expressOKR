@@ -13,7 +13,6 @@ class Base {
     })
   }
   select(params) {
-    console.log(params);
     return new Promise((reslove,reject)=>{
       knex(this.table).where(params).select()
       .then( res => {
@@ -25,7 +24,6 @@ class Base {
   }
 
   insert(params){
-    // console.log(params);
     return new Promise((reslove,reject)=>{
       knex(this.table).insert( params )
       .then( res => {
@@ -36,7 +34,6 @@ class Base {
     })
   }
   update(id, params ){
-    console.log(id, params, 'kkkkk');
     return new Promise((reslove,reject)=>{
       knex(this.table).where('id', '=', id).update( params )
       .then( res => {
