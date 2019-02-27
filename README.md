@@ -9,7 +9,7 @@
     "token": "077a30ac140a35bd63fbea9076863a0b"
 }
 
-添加的接口：http://localhost:3000/api/
+添加的接口：http://localhost:3000/api/okr
 查看所有okr接口：http://localhost:3000/api/okr
 
 
