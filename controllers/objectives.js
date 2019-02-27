@@ -72,7 +72,7 @@ const objectivesController = {
     }
   },
   edit:async function(req,res,next){
-    let id = req.body.id;
+    let id = req.params.id;
     let objective = req.body.objective;
     let deadline = req.body.deadline;
     let keyresult = req.body.keyresult;
@@ -81,16 +81,8 @@ const objectivesController = {
       res.json({code:0,data:'params empty!'});
       return
     }
-    let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     try{
-      const objectives = await Objective.update(user_id,{objective,deadline});
-      let updateData = keyresult.map(function(data){
-        return{
-          objective_id:id,
-          keyresult:data
-        }
-      })
-      console.log(updateData, 'ooooos')
+      const objectives = await Objective.update(id,{objective,deadline});
       const keyresulssts = await Keyresult.update(id,{updateData})
       res.json({code:200,message:'ok'})
     }catch(e){
