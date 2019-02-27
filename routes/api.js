@@ -8,8 +8,8 @@ var objectivesControll = require('./../controllers/objectives.js')
 router.post('/login',csrf.getToken,userController.login)
 router.post('/okr',csrf.getToken,objectivesControll.insert);
 router.get('/okr',csrf.setToken,objectivesControll.show);
-// router.get('/okr/:id',csrf.setToken,objectivesControll.showId);
-
+router.get('/okr/:id',csrf.setToken,objectivesControll.showId);
+// router.get('/okr/update',csrf.setToken,objectivesControll.edit)
 
 
 /* GET users listing. */

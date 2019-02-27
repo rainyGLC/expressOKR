@@ -34,7 +34,7 @@ const objectivesController = {
   },
   show:async function(req,res,next){
     try{
-      let token = req.body.token;
+      let token = req.query.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       const objectives = await Objective.select({user_id});
       console.log(objectives);
@@ -43,36 +43,46 @@ const objectivesController = {
       res.json({code:0,data:e})
     }
   },
-  // showId:async function(req,res,next){
+  showId:async function(req,res,next){
+    try{
+      let id = req.body.id;
+      console.log(id)
+      const objectives = await Objective.selectId({id});
+      console.log(objectives);
+      res.json({code:200,data:objectives})
+    }catch(e){
+       console.log(e);
+      res.json({code:0,data:e})
+    }
+  },
+  // edit:async function(req,res,next){
+  //   let objective = req.body.objective;
+  //   let deadline = req.body.deadline;
+  //   let keyresult = req.body.keyresult;
+  //   let token = req.body.token;
+  //   console.log(token)
+  //   if(!objective || !deadline ||!token ||!keyresult){
+  //     res.json({code:0,data:'params empty!'});
+  //     return
+  //   }
+  //   let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
   //   try{
-  //     let id = req.body.id;
-  //     console.log(id)
-  //     const objectives = await Objective.selectId({id});
+  //     const objectives = await Objective.update(user_id,{objective,deadline,});
   //     console.log(objectives);
-  //     let selectObjecte = objectives.map(data=>{
-  //       let data = [];
-  //       let dom =[];
-  //       let keyresults =[];
-  //       let id = data.id;
-  //       let objective = data.objective;
-  //       let deadline = data.deadline;
-  //       let objective_id = data.objective_id;
-  //       let keyresult = data.keyresult;
-  //       keyresults.objective_id = objective_id;
-  //       keyresult.forEach((item,index) => {
-  //         dom.index = item;
-  //       });
-  //       keyresults.dom = dom;
-  //       console.log(keyresults);
-  //       return {id,objective,deadline,keyresults};
+  //     let objective_id = objectives[0];
+  //     let updateData = keyresult.map(function(data){
+  //       return{
+  //         objective_id:objective_id,
+  //         keyresult:data
+  //       }
   //     })
-  //     console.log(selectObjecte);
+  //     const keyresults = await Keyresult.update(updateData)
   //     res.json({code:200,message:'ok'})
   //   }catch(e){
-  //      console.log(e);
+  //     console.log(e)
   //     res.json({code:0,data:e})
   //   }
-  // },
+  // }
   
 }
 module.exports = objectivesController;

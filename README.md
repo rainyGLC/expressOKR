@@ -11,6 +11,7 @@
 
 添加的接口：http://localhost:3000/api/okr
 查看所有okr接口：http://localhost:3000/api/okr
+查看单个借口：http://localhost:3000/api/okr/:id
 
 
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
