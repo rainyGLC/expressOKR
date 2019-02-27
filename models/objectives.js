@@ -7,10 +7,16 @@ class Objectives extends Base {
     super(props)
   }
   selectId(params){
-    return Knex(TABLE).leftJoin('keyresults','objectives.id','=','objective_id')
-    .select({id:'objectives.id'},'objectives.objective','objectives.deadline',
-    {'objective_id':'keyresults.objective_id'},{'keyresult':'keyresults.keyresult'})
-    .where({'objectives.id':params.id})
+    return Knex(TABLE)
+      .leftJoin('keyresults','objectives.id','=','keyresults.objective_id')
+      .select(
+        {id:'objectives.id'},
+        'objectives.objective',
+        'objectives.deadline',
+        {'keyresultId':'keyresults.id'},
+        {'keyresult':'keyresults.keyresult'}
+      )
+      .where({'objectives.id':params.id})
   }
 }
 module.exports = Objectives;
