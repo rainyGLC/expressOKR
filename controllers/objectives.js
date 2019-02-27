@@ -55,33 +55,33 @@ const objectivesController = {
       res.json({code:0,data:e})
     }
   },
-  edit:async function(req,res,next){
-    let id = req.body.id;
-    let objective = req.body.objective;
-    let deadline = req.body.deadline;
-    let keyresult = req.body.keyresult;
-    let token = req.body.token;
-    if(!objective || !deadline ||!token ||!keyresult){
-      res.json({code:0,data:'params empty!'});
-      return
-    }
-    let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
-    try{
-      const objectives = await Objective.update(user_id,{objective,deadline});
-      let updateData = keyresult.map(function(data){
-        return{
-          objective_id:id,
-          keyresult:data
-        }
-      })
-      console.log(updateData)
-      const keyresults = await Keyresult.update(id,{updateData})
-      res.json({code:200,message:'ok'})
-    }catch(e){
-      console.log(e)
-      res.json({code:0,data:e})
-    }
-  }
+  // edit:async function(req,res,next){
+  //   let id = req.body.id;
+  //   let objective = req.body.objective;
+  //   let deadline = req.body.deadline;
+  //   let keyresult = req.body.keyresult;
+  //   let token = req.body.token;
+  //   if(!objective || !deadline ||!token ||!keyresult){
+  //     res.json({code:0,data:'params empty!'});
+  //     return
+  //   }
+  //   let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
+  //   try{
+  //     const objectives = await Objective.update(user_id,{objective,deadline});
+  //     let updateData = keyresult.map(function(data){
+  //       return{
+  //         objective_id:id,
+  //         keyresult:data
+  //       }
+  //     })
+  //     console.log(updateData)
+  //     const keyresults = await Keyresult.update(id,{updateData})
+  //     res.json({code:200,message:'ok'})
+  //   }catch(e){
+  //     console.log(e)
+  //     res.json({code:0,data:e})
+  //   }
+  // }
   
 }
 module.exports = objectivesController;
