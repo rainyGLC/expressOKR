@@ -1,20 +1,26 @@
 var express = require('express');
 var router = express.Router();
-var csrf = require('./../middlewares/csrf.js');
 var userController = require('./../controllers/user.js');
-var objectivesControll = require('./../controllers/objectives.js')
+var objectivesControll = require('./../controllers/objectives.js');
+var todosControll = require('./../controllers/todos.js');
 
 
-router.post('/login',csrf.getToken,userController.login)
-router.post('/okr',csrf.getToken,objectivesControll.insert);
-router.get('/okr',csrf.setToken,objectivesControll.show);
-router.get('/okr/:id',csrf.setToken,objectivesControll.showId);
-router.put('/okr/:id',csrf.getToken,objectivesControll.edit);
+router.post('/login',userController.login)
+router.post('/okr',objectivesControll.insert);
+router.get('/okr',objectivesControll.show);
+router.get('/okr/:id',objectivesControll.showId);
+router.put('/okr/:id',objectivesControll.edit);
+
+router.post('/todos',todosControll.insert);
+
+// router.post('/todos',function(req,res,next){
+//   res.json({code:200})
+// });
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('respond with a resource2');
 });
 
 module.exports = router;
