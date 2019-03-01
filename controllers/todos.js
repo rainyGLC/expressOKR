@@ -61,8 +61,6 @@ const todosControll = {
       res.json({code:200,data:0})
     }
   },
-  show:{
-    
-  }
+
 }
 module.exports = todosControll;
