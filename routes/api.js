@@ -5,13 +5,16 @@ var objectivesControll = require('./../controllers/objectives.js');
 var todosControll = require('./../controllers/todos.js');
 
 
-router.post('/login',userController.login)
+router.post('/login',userController.login);
 router.post('/okr',objectivesControll.insert);
 router.get('/okr',objectivesControll.show);
 router.get('/okr/:id',objectivesControll.showId);
 router.put('/okr/:id',objectivesControll.edit);
 
+
 router.post('/todos',todosControll.insert);
+
+
 
 // router.post('/todos',function(req,res,next){
 //   res.json({code:200})

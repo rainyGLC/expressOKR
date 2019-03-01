@@ -60,6 +60,9 @@ const todosControll = {
       console.log(e)
       res.json({code:200,data:0})
     }
+  },
+  show:{
+    
   }
 }
 module.exports = todosControll;

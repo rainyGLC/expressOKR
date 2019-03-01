@@ -34,11 +34,30 @@ const objectivesController = {
   },
   show:async function(req,res,next){
     try{
-      let token = req.query.token;
+      let token = req.body.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
-      const objectives = await Objective.select({user_id});
-      res.json({code:200,data:objectives})
+      const objectives = await Objective.showAll({user_id});
+      let objectivData= {};
+      objectives.forEach(data=>{
+        if(objectivData[data.id]){
+          objectivData[data.id].keyresults.push({
+            id:data.keyresultId,
+            keyresults:data.keyresult
+          })
+        }else{
+          objectivData[data.id] ={
+            id : data.id,
+            objective:data.objective,
+            deadline:data.deadline,
+            keyresults:[{id:data.keyresultId,keyresult:data.keyresult}]
+          }
+        }
+      })
+      let objectivArr = Object.values(objectivData);
+      console.log(objectivArr);
+      res.json({code:200,data:objectivArr})
     }catch(e){
+      console.log(e);
       res.json({code:0,data:e})
     }
   },
@@ -51,6 +70,7 @@ const objectivesController = {
       let keyresults = [];
       let keyresultId = '';
       objectives.forEach((data)=>{
+        id = id;
         objective = data.objective;
         deadline = data.deadline;
         keyresults.push({id:data.keyresultId,keyresult:data.keyresult})
@@ -63,6 +83,7 @@ const objectivesController = {
       }
       res.json({code:200,data:showData})
     }catch(e){
+      console.log(e)
       res.json({code:0,data:e})
     }
   },
