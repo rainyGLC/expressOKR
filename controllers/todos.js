@@ -67,13 +67,13 @@ const todosControll = {
   //     const todos = await Todos.selectTodo({id});
   //     let todosData ={};
   //     todos.forEach(data=>{
-  //       let 
+  //   
   //       todosData[data.id]={
   //         todos:[{id:data.todos_id,value:data.value}],
   //         surprise:data.surprise
   //       }
   //     })
-      
+
 
   //     console.log(todos);
   //     res.json({codo:200,data:todos})
