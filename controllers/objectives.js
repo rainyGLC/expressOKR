@@ -42,7 +42,7 @@ const objectivesController = {
         if(objectivData[data.id]){
           objectivData[data.id].keyresults.push({
             id:data.keyresultId,
-            keyresults:data.keyresult
+            keyresult:data.keyresult
           })
         }else{
           objectivData[data.id] ={

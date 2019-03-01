@@ -10,7 +10,7 @@ class Todos extends Base {
     .leftJoin('todo','todos.id','=','todo.todos_id')
     .select(
       'todos.surprise',
-      {'todos_id':'todo.todos_id'},
+      {'id':'todo.id'},
       {'value':'todo.value'}
     )
     .where({'todos.id':params.id})
