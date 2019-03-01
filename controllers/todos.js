@@ -61,31 +61,32 @@ const todosControll = {
       res.json({code:200,data:0})
     }
   },
-  // showTodo:async function(req,res,next){
-  //   try{
-  //     let id = req.params.id;
-  //     const singleTodo = await Todos.selectTodo({id});
-  //     let todosData =[];
-  //     let todos ={};
-  //     let surprise = '';
-  //     singleTodo.forEach(data=>{
-  //       todosData[data.id]={
-  //         id:data.id,
-  //         value:data.value,
-  //         surprise:data.surprise
-  //       },
-  //     )
-  //     let singleData ={
-  //       todos:{todosData,surprise:surprise}
-  //     }
-  //     console.log(singleTodo);
-  //     console.log(singleData);
-  //     res.json({codo:200,data:todos})
-  //   }catch(e){
-  //     console.log(e)
-  //     res.json({code:0,data:e})
-  //   }
-  // }
+  showTodo:async function(req,res,next){
+    try{
+      let id = req.params.id;
+      const singleTodo = await Todos.selectTodo({id});
+      let todosData =[];
+      let surprise =singleTodo[0].surprise;
+      console.log(surprise);
+      singleTodo.forEach(data=>{
+        todosData[data.id]={
+          id:data.id,
+          value:data.value,   
+        }
+      })
+      let todosDatas = Object.values(todosData);
+      console.log(todosDatas);
+      let sigleData = {
+        todos:todosDatas,
+        surprise:surprise
+      }
+      console.log(sigleData);
+      res.json({codo:200,data:sigleData})
+    }catch(e){
+      console.log(e)
+      res.json({code:0,data:e})
+    }
+  }
 
 }
 module.exports = todosControll;

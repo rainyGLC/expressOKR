@@ -24,6 +24,21 @@ OKR部分
             {"value": "项目三","keyresults": [1]}],
   "surprise":"bbb"
 }
+获取单条 Todos的接口:http://localhost:3000/api/todos/:id
+需要传入的参数为：
+{
+  todos: [{
+    id: 3,
+    value: '项目 1',
+  },{
+    id: 4,
+    value: '项目 2',
+  },{
+    id: 5,
+    value: '项目三',
+  }],
+  surprise: 'xxxxxxx'
+}
 
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
 
