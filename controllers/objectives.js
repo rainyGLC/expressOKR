@@ -34,7 +34,7 @@ const objectivesController = {
   },
   show:async function(req,res,next){
     try{
-      let token = req.body.token;
+      let token = req.query.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       const objectives = await Objective.showAll({user_id});
       let objectivData= {};

@@ -13,7 +13,7 @@ router.put('/okr/:id',objectivesControll.edit);
 
 
 router.post('/todos',todosControll.insert);
-// router.get('/todos/:id',todosControll.showTodo);
+router.get('/todos/:id',todosControll.showTodo);
 
 
 

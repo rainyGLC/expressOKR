@@ -61,28 +61,25 @@ const todosControll = {
       res.json({code:200,data:0})
     }
   },
-  // showTodo:async function(req,res,next){
-  //   try{
-  //     let id = req.params.id;
-  //     const todos = await Todos.selectTodo({id});
-  //     let todosData ={};
-  //     todos.forEach(data=>{
-  //   
-  //       todosData[data.id]={
-  //         todos:[{id:data.todos_id,value:data.value}],
-  //         surprise:data.surprise
-  //       }
-  //     })
+  showTodo:async function(req,res,next){
+    try{
+      let id = req.params.id;
+      const todos = await Todos.selectTodo({id});
+      let todosData ={};
+      todos.forEach(data=>{
+        todosData[data.id]={
+          todos:[{id:data.todos_id,value:data.value}],
+          surprise:data.surprise
+        }
+      })
+      console.log(todosData);
+      res.json({codo:200,data:todos})
 
-
-  //     console.log(todos);
-  //     res.json({codo:200,data:todos})
-
-  //   }catch(e){
-  //     console.log(e)
-  //     res.json({code:0,data:e})
-  //   }
-  // }
+    }catch(e){
+      console.log(e)
+      res.json({code:0,data:e})
+    }
+  }
 
 }
 module.exports = todosControll;
