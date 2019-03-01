@@ -54,6 +54,7 @@ const objectivesController = {
         }
       })
       let objectivArr = Object.values(objectivData);
+      return objectivArr;
       console.log(objectivArr);
       res.json({code:200,data:objectivArr})
     }catch(e){
