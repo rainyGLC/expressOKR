@@ -14,6 +14,7 @@ router.put('/okr/:id',objectivesControll.edit);
 
 router.post('/todos',todosControll.insert);
 router.get('/todos/:id',todosControll.showTodo);
+router.post('/todos/:id',todosControll.editTodes)
 
 
 

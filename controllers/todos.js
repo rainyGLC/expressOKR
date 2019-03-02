@@ -3,33 +3,29 @@ const TodoModel = require('./../models/todo.js');
 const KeyresultModel = require('./../models/keyresults.js');
 const TodokeyresultModel = require('./../models/todo_keyresult.js');
 const ObjectivesModel = require('./../models/objectives.js');
+const UserhappinessModel = require('./../models/user_happiness.js')
 const Objective = new ObjectivesModel();
 const Todos = new TodosModel();
 const Todo = new TodoModel();
 const Keyresult = new KeyresultModel();
 const Todokeyresult = new TodokeyresultModel();
+const Userhappiness = new UserhappinessModel();
 const authCodeFunc = require('./../utils/authCode.js');
 
 const todosControll = {
   insert: async function(req,res,next){
     let token = req.body.token;
     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
-    console.log(user_id);//1
     let surprise = req.body.surprise;//aaa
-    console.log(surprise);
     let todos =req.body.todos;
-    console.log(todos);
     let todosValue =[];//['项目 1', '项目 2', '项目三' ]
     let valuedata = todos.map(data=>{
       return{
         todosValue:todosValue.push(data.value)
       }
     })
-    console.log(todosValue)
     let keyresults=todos[0];
-    console.log(keyresults);
     let keyresult = keyresults.keyresults
-    console.log(keyresult);
     if(!user_id ||!todos){
       res.json({code:0,data:' empty'});
       return
@@ -37,15 +33,16 @@ const todosControll = {
     try{
       const todos = await Todos.insert({surprise,user_id});
       let todos_id = todos[0];
+      console.log(todos_id)
       let todosValues = todosValue.map(data=>{
         return{
           todos_id :todos_id,
           value:data
         }  
       })
-      console.log(todosValues);
       const todo = await Todo.insert(todosValues);
       let todoId = todo[0];
+      console.log(todoId);
       let keyresultData = keyresult.map(data=>{
         return{
           todo_id:todoId,
@@ -53,7 +50,6 @@ const todosControll = {
         } 
       })
       const keyresultId = await Todokeyresult.insert(keyresultData);
-      console.log(keyresultData);
       res.json({code:200,message:'ok'})
       
     }catch(e){
@@ -86,7 +82,38 @@ const todosControll = {
       console.log(e)
       res.json({code:0,data:e})
     }
+  },
+  editTodes:async function(req,res,next){
+    let id = req.params.id;
+    let todos = req.body.todos;
+    let todo_id = todos[0].id;
+    let status = todos[0].status;
+    let reflect = req.body.reflect;
+    let happiness = req.body.happiness;
+    let happiness_id ='';
+    let happinessData = happiness.map(data=>{
+      return{
+        todos_id:id,
+        happiness_id:data
+      }
+    })
+    // let happiness_id = happiness[0];
+    // console.log(happiness_id);
+    console.log(happinessData);
+    if(!id || !todos ||!reflect ||!happiness){
+      res.json({code:0,data:'empty'});
+      return
+    }
+    try{
+      const reflectData = await Todos.update(id,{reflect});
+      const statusData = await Todo.update(todo_id,{status});
+      // const happinessId = await Userhappiness.insert({happiness_id})
+      const happinessId = await Userhappiness.insert(happinessData);
+      res.json({code:200,message:'ok'})
+    }catch(e){
+      console.log(e)
+      res.json({code:200,data:0})
+    }
   }
-
 }
 module.exports = todosControll;

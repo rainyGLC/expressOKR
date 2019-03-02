@@ -40,6 +40,25 @@ OKR部分
   surprise: 'xxxxxxx'
 }
 
+修改 todos的接口:http://localhost:3000/api/todos/:id
+需要传入的参数为：
+{
+  todos: [{
+    id: 3,
+    status: 1,
+  },{
+    id: 4,
+    status: 0,
+  },{
+    id: 5,
+    status: 0,
+  }],
+  reflect: 'xxxxxxx',
+  happiness: [1,2,3]
+}
+
+
+
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
 
 数据库的文件在sql文件夹下
