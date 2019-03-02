@@ -19,10 +19,17 @@ OKR部分
 添加的接口：http://localhost:3000/api/todos
 需要传入的参数为：
 {
-  "token": "077a30ac140a35bd63fbea9076863a0b",
-  "todos": [{"value": "项目 1","keyresults":[1,2]},{"value": "项目 2","keyresults": []},
-            {"value": "项目三","keyresults": [1]}],
-  "surprise":"bbb"
+  todos: [{
+    value: '项目 1',
+    keyresults: [1,2]
+  },{
+    value: '项目 2',
+    keyresults: []
+  },{
+    value: '项目三',
+    keyresults: [1]
+  }],
+  surprise: 'xxxxxxx'
 }
 获取单条 Todos的接口:http://localhost:3000/api/todos/:id
 需要传入的参数为：

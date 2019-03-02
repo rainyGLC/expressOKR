@@ -26,7 +26,7 @@ const todosControll = {
     })
     let keyresults=todos[0];
     let keyresult = keyresults.keyresults
-    if(!user_id ||!todos){
+    if(!user_id ||!todos ||!surprise){
       res.json({code:0,data:' empty'});
       return
     }
@@ -51,7 +51,6 @@ const todosControll = {
       })
       const keyresultId = await Todokeyresult.insert(keyresultData);
       res.json({code:200,message:'ok'})
-      
     }catch(e){
       console.log(e)
       res.json({code:200,data:0})
@@ -114,6 +113,16 @@ const todosControll = {
       console.log(e)
       res.json({code:200,data:0})
     }
-  }
+  },
+  // showTodos:async function(req,res,next){
+  //   try{
+  //     let id = req.params.id;
+  //     const recordTodos = await Todos.selectTodos({id});
+  //     res.json({code:200,message:'ok'})
+  //   }catch(e){
+  //     console.log(e)
+  //     res.json({codo:0,data:e})
+  //   }
+  // },
 }
 module.exports = todosControll;
