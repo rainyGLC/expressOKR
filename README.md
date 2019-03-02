@@ -11,7 +11,7 @@
 OKR部分
 添加的接口：http://localhost:3000/api/okr
 查看所有okr接口：http://localhost:3000/api/okr
-查看单个借口：http://localhost:3000/api/okr/:id
+查看单个接口：http://localhost:3000/api/okr/:id
 编辑接口：http://localhost:3000/api/okr/:id
 
 

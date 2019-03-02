@@ -50,7 +50,7 @@ const todosControll = {
         } 
       })
       const keyresultId = await Todokeyresult.insert(keyresultData);
-      res.json({code:200,message:'ok'})
+      res.json({code:200,message:'ok',todos_id:todos_id})
     }catch(e){
       console.log(e)
       res.json({code:200,data:0})
@@ -116,13 +116,35 @@ const todosControll = {
   },
   // showTodos:async function(req,res,next){
   //   try{
-  //     let id = req.params.id;
-  //     const recordTodos = await Todos.selectTodos({id});
-  //     res.json({code:200,message:'ok'})
+  //     let token = req.body.token;
+  //     console.log(token);
+  //     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
+  //     const recordTodos = await Todos.selectTodos({user_id});
+  //     console.log(recordTodos);
+  //     let recordData = {};
+  //     recordTodos.forEach(data=>{
+  //       if(recordData[data.id]){
+  //         console.log(recordData[data.id])
+  //         recordData[data.id].todos.push({
+  //           id:data.id,
+  //           value:data.value,
+  //           status:data.status
+  //         })
+  //       }else{
+  //         recordData[data.id]={
+  //           created_at:data.created_at,
+  //           surprise:data.surprise,
+  //           reflect:data.reflect,
+  //           todos:[{id:data.id,value:data.value,status:data.status}]
+  //         }
+  //       }
+  //     })
+  //     let recordArr = Object.values(recordData)
+  //     res.json({code:200,data:recordArr})
   //   }catch(e){
   //     console.log(e)
-  //     res.json({codo:0,data:e})
+  //     res.json({codo:200,data:0})
   //   }
-  // },
+  // }
 }
 module.exports = todosControll;

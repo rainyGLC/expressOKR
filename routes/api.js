@@ -15,10 +15,10 @@ router.put('/okr/:id',objectivesControll.edit);
 router.post('/todos',todosControll.insert);
 router.get('/todos/:id',todosControll.showTodo);
 router.post('/todos/:id',todosControll.editTodes)
-// router.get('./todos',todosControll.showTodos)
+// router.get('/todos',todosControll.showTodos);
 
 
-// router.post('/todos',function(req,res,next){
+// router.get('/todos',function(req,res,next){
 //   res.json({code:200})
 // });
 
