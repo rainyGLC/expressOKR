@@ -116,10 +116,11 @@ const todosControll = {
   },
   showTodos:async function(req,res,next){
     try{
-      let token = req.body.token;
+      let token = req.query.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       let todos = await Todos.select({user_id});
       let todos_id = todos.map( data => data.id);
+
       let todo = await Todo.selectIn({
         key: 'todos_id',
         value: todos_id
@@ -147,6 +148,7 @@ const todosControll = {
         key: 'todos_id',
         value: todos_id
       })
+
       happiness.forEach(data => {
         todosObj[data.todos_id].happness.push(data.happiness_id)
       })

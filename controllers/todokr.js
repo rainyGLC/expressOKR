@@ -19,7 +19,9 @@ const todokrControll = {
       let id = req.params.id;
       let todokeyresult = await Todokeyresult.selectId({id});
       console.log(todokeyresult);
+      // let objectives_id = todokeyresult.objectives_id;
       
+
       res.json({code:200,message:'ok'})
     }catch(e){
       console.log(e)
