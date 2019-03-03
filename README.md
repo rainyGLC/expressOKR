@@ -64,6 +64,13 @@ OKR部分
   happiness: [1,2,3]
 }
 
+历史记录 获取所有todos的接口 :http://localhost:3000/api/todos
+请求类型：GET
+需要传入的参数为：
+{
+  "token": "077a30ac140a35bd63fbea9076863a0b"
+}
+
 
 
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
