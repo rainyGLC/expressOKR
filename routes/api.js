@@ -3,6 +3,7 @@ var router = express.Router();
 var userController = require('./../controllers/user.js');
 var objectivesControll = require('./../controllers/objectives.js');
 var todosControll = require('./../controllers/todos.js');
+var todokrControll = require('./../controllers/todokr.js')
 
 
 router.post('/login',userController.login);
@@ -17,6 +18,7 @@ router.get('/todos/:id',todosControll.showTodo);
 router.post('/todos/:id',todosControll.editTodes)
 router.get('/todos',todosControll.showTodos);
 
+router.get('/todo-kr/:id',todokrControll.check);
 
 
 
@@ -26,8 +28,8 @@ router.get('/todos',todosControll.showTodos);
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource2');
-});
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource2');
+// });
 
 module.exports = router;
