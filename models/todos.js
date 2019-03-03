@@ -19,8 +19,9 @@ class Todos extends Base {
     return Knex(TABLE)
     .leftJoin('todo','todos.id','=','todo.todos_id')
     .select(
+      'todos.id',
       'todos.created_at',
-      {id:'todo.id'},
+      {todoId:'todo.id'},
       {'value':'todo.value'},
       {'status':'todo.status'},
       'todos.surprise',
@@ -32,10 +33,9 @@ class Todos extends Base {
     return Knex(TABLE)
     .leftJoin('user-happiness','todos.id','=','user-happiness.todos_id')
     .select(
-      {id:'user-happiness.id'},
-      {'happiness_id':'user-happiness.happiness_id'}
+      'user-happiness.happiness_id'
     )
-    .where({'user-happiness.id':params.id})
+    .where({'user-happiness.todos_id':params.todos_id})
   }
 } 
 module.exports = Todos;

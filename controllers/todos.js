@@ -50,7 +50,7 @@ const todosControll = {
         } 
       })
       const keyresultId = await Todokeyresult.insert(keyresultData);
-      res.json({code:200,message:'ok',todos_id:todos_id})
+      res.json({code:200,message:'ok',todos_id:todos_id,})
     }catch(e){
       console.log(e)
       res.json({code:200,data:0})
@@ -108,7 +108,7 @@ const todosControll = {
       const statusData = await Todo.update(todo_id,{status});
       // const happinessId = await Userhappiness.insert({happiness_id})
       const happinessId = await Userhappiness.insert(happinessData);
-      res.json({code:200,message:'ok'})
+      res.json({code:200,todos:todos})
     }catch(e){
       console.log(e)
       res.json({code:200,data:0})
@@ -120,26 +120,39 @@ const todosControll = {
   //     console.log(token);
   //     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
   //     const recordTodos = await Todos.selectTodos({user_id});
-  //     console.log(recordTodos);
+  //     let todos_id = recordTodos[0].id;
+  //     const happinessData = await Todos.selectHappy({todos_id});
+      
+  //     console.log(happinessData);
+  //     let happinessTemp = JSON.stringify(happinessData);
+  //     let happinessArr = JSON.parse(happinessTemp);
+  //     let happinessId = [];
+  //     happinessArr.map(data=>{
+  //       return{
+  //         happinessId:happinessId.push(data.happiness_id)
+  //       }
+  //     })
+  //     console.log(happinessId)
   //     let recordData = {};
   //     recordTodos.forEach(data=>{
   //       if(recordData[data.id]){
-  //         console.log(recordData[data.id])
   //         recordData[data.id].todos.push({
-  //           id:data.id,
+  //           id:data.todoId,
   //           value:data.value,
   //           status:data.status
   //         })
   //       }else{
   //         recordData[data.id]={
+  //           id:data.id,
   //           created_at:data.created_at,
   //           surprise:data.surprise,
   //           reflect:data.reflect,
-  //           todos:[{id:data.id,value:data.value,status:data.status}]
+  //           todos:[{todoId:data.todoId,value:data.value,status:data.status}]
   //         }
   //       }
   //     })
-  //     let recordArr = Object.values(recordData)
+  //     let recordArr = Object.values(recordData);
+
   //     res.json({code:200,data:recordArr})
   //   }catch(e){
   //     console.log(e)
