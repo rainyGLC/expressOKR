@@ -30,12 +30,14 @@ class Todos extends Base {
     .where({'todos.user_id':params.user_id})
   }
   selectHappy(params){
+    console.log(params);
     return Knex(TABLE)
     .leftJoin('user-happiness','todos.id','=','user-happiness.todos_id')
     .select(
-      'user-happiness.happiness_id'
+      {'todos_id':'user-happiness.todos_id',},
+      { 'happiness_id':'user-happiness.happiness_id'}
     )
-    .where({'user-happiness.todos_id':params.todos_id})
+    .whereIn('todos_id', params);
   }
 } 
 module.exports = Todos;

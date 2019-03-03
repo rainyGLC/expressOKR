@@ -88,7 +88,7 @@ const todosControll = {
     let todo_id = todos[0].id;
     let status = todos[0].status;
     let reflect = req.body.reflect;
-    let happiness = req.body.happiness;
+    let happiness = req.body.happiness;//[1,2,3]
     let happiness_id ='';
     let happinessData = happiness.map(data=>{
       return{
@@ -108,56 +108,55 @@ const todosControll = {
       const statusData = await Todo.update(todo_id,{status});
       // const happinessId = await Userhappiness.insert({happiness_id})
       const happinessId = await Userhappiness.insert(happinessData);
-      res.json({code:200,todos:todos})
+      res.json({code:200,message:'ok'})
     }catch(e){
       console.log(e)
       res.json({code:200,data:0})
     }
   },
-  // showTodos:async function(req,res,next){
-  //   try{
-  //     let token = req.body.token;
-  //     console.log(token);
-  //     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
-  //     const recordTodos = await Todos.selectTodos({user_id});
-  //     let todos_id = recordTodos[0].id;
-  //     const happinessData = await Todos.selectHappy({todos_id});
-      
-  //     console.log(happinessData);
-  //     let happinessTemp = JSON.stringify(happinessData);
-  //     let happinessArr = JSON.parse(happinessTemp);
-  //     let happinessId = [];
-  //     happinessArr.map(data=>{
-  //       return{
-  //         happinessId:happinessId.push(data.happiness_id)
-  //       }
-  //     })
-  //     console.log(happinessId)
-  //     let recordData = {};
-  //     recordTodos.forEach(data=>{
-  //       if(recordData[data.id]){
-  //         recordData[data.id].todos.push({
-  //           id:data.todoId,
-  //           value:data.value,
-  //           status:data.status
-  //         })
-  //       }else{
-  //         recordData[data.id]={
-  //           id:data.id,
-  //           created_at:data.created_at,
-  //           surprise:data.surprise,
-  //           reflect:data.reflect,
-  //           todos:[{todoId:data.todoId,value:data.value,status:data.status}]
-  //         }
-  //       }
-  //     })
-  //     let recordArr = Object.values(recordData);
+  showTodos:async function(req,res,next){
+    try{
+      let token = req.body.token;
+      let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
+      let todos = await Todos.select({user_id});
+      let todos_id = todos.map( data => data.id);
+      let todo = await Todo.selectIn({
+        key: 'todos_id',
+        value: todos_id
+      })
 
-  //     res.json({code:200,data:recordArr})
-  //   }catch(e){
-  //     console.log(e)
-  //     res.json({codo:200,data:0})
-  //   }
-  // }
+      let todosObj = {}
+      todos.forEach((data)=>{
+        data.happness = [];
+        data.todos = []
+        todosObj[data.id] = data
+      })
+
+      todo.forEach((data)=>{
+        let tmp = {
+          id: data.id,
+          value: data.value,
+          status: data.status
+        }
+   
+        todosObj[data.todos_id].todos.push(tmp)
+      })
+
+
+      let happiness =  await Userhappiness.selectIn({
+        key: 'todos_id',
+        value: todos_id
+      })
+      happiness.forEach(data => {
+        todosObj[data.todos_id].happness.push(data.happiness_id)
+      })
+
+      let result = Object.values(todosObj)
+      res.json({code:200, data: result})
+    }catch(e){
+      console.log(e)
+      res.json({codo:200,data:0})
+    }
+  }
 }
 module.exports = todosControll;

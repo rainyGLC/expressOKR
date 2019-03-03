@@ -23,6 +23,17 @@ class Base {
     })
   }
 
+  selectIn(params) {
+    return new Promise((reslove,reject)=>{
+      knex(this.table).whereIn(params.key,params.value).select()
+      .then( res => {
+        reslove(res)
+      }).catch( err => {
+        reject(err)
+      })
+    })
+  }
+
   insert(params){
     return new Promise((reslove,reject)=>{
       knex(this.table).insert( params )
