@@ -18,6 +18,7 @@ const todosControll = {
     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     let surprise = req.body.surprise;//aaa
     let todos =req.body.todos;
+    console.log(todos)
     let todosValue =[];//['项目 1', '项目 2', '项目三' ]
     let valuedata = todos.map(data=>{
       return{
@@ -116,7 +117,7 @@ const todosControll = {
   },
   showTodos:async function(req,res,next){
     try{
-      let token = req.body.token;
+      let token = req.query.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       let todos = await Todos.select({user_id});
       let todos_id = todos.map( data => data.id);

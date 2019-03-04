@@ -8,7 +8,7 @@ const objectivesController = {
   insert: async function(req,res,next){
     let objective = req.body.objective;
     let deadline = req.body.deadline;
-    let token = req.body.token;
+   let token = req.body.token;
     let keyresult = req.body.keyresult;
     console.log(objective,deadline,token,keyresult)
     if(!objective || !deadline || !token || !keyresult){
