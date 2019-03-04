@@ -8,7 +8,7 @@ const Objective = new ObjectivesModel();
 const todokrControll = {
   check:async function(req,res,next){
     try{
-      let id = req.query.id;
+      let id = req.params.id;
       let todokeyresult = await Todokeyresult.joinObjectAndKR({id});
       console.log(todokeyresult);
       let todokeyresultTemp = {};
@@ -24,7 +24,7 @@ const todokrControll = {
       })
       let todokeyresultShow = Object.values(todokeyresultTemp);
       console.log(todokeyresultShow);
-      res.json({code:200,data:todokeyresultShow})
+      res.json({code:200,id:id,data:todokeyresult})
     }catch(e){
       console.log(e)
       res.json({code:0,data:e})
