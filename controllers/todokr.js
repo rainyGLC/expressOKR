@@ -17,12 +17,22 @@ const todokrControll = {
   check:async function(req,res,next){
     try{
       let id = req.params.id;
-      let todokeyresult = await Todokeyresult.selectId({id});
+      let todokeyresult = await Todokeyresult.joinObjectAndKR({id});
       console.log(todokeyresult);
-      // let objectives_id = todokeyresult.objectives_id;
-      
-
-      res.json({code:200,message:'ok'})
+      let todokeyresultTemp = {};
+      todokeyresult.forEach(data=>{
+        if(todokeyresultTemp[data.objectives_id]){
+          todokeyresultTemp[data.objectives_id].keyresults.push(data.keyresult)
+        }else{
+          todokeyresultTemp[data.objectives_id] ={
+            objectives:data.objectives,
+            keyresults:[data.keyresult]
+          }
+        }
+      })
+      let todokeyresultShow = Object.values(todokeyresultTemp);
+      console.log(todokeyresultShow);
+      res.json({code:200,data:todokeyresultShow})
     }catch(e){
       console.log(e)
       res.json({code:0,data:e})

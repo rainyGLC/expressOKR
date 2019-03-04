@@ -71,7 +71,17 @@ OKR部分
   "token": "077a30ac140a35bd63fbea9076863a0b"
 }
 
-
+查询 KR的接口:http://localhost:3000/api/todo-kr/:id
+请求类型：GET
+需要传入的参数为：todo.id
+返回数据:
+[{
+  objective: '目标名称',
+  keyresults: ['成就 1']
+},{
+  objective: '目标名称2',
+  keyresults: ['成就 3','成就 4']
+}]
 
 跨域请求的文件在middlewares/cors.js,可在路由中直接引用cors.allowAll()方法
 
