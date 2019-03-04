@@ -37,6 +37,7 @@ const objectivesController = {
       let token = req.body.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       const objectives = await Objective.showAll({user_id});
+      let objectivesNodata =[];
       let objectivData= {};
       objectives.forEach(data=>{
         if(objectivData[data.id]){
@@ -54,9 +55,15 @@ const objectivesController = {
         }
       })
       let objectivArr = Object.values(objectivData);
-      // return objectivArr;
-      console.log(objectivArr);
-      res.json({code:200,data:objectivArr})
+      let deadline = objectives[0].deadline;
+      console.log(deadline);
+      let mydata = new Date();
+      console.log(mydata);
+      if(deadline > mydata){
+        res.json({code:200,data:objectivArr})
+      }else{
+        res.json({code:200,data:objectivesNodata})
+      }
     }catch(e){
       console.log(e);
       res.json({code:0,data:e})
