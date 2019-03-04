@@ -24,17 +24,18 @@ const todosControll = {
         todosValue:todosValue.push(data.value)
       }
     })
-    // let keyresultArr = todos.map(data =>data.keyresults);
-    let keyresultArr = todos.map(data=>{
-      return {
-        id:data.id,
-        keyresults:data.keyresults
-      }
-    })
-    console.log(keyresultArr);
-    let objectives_id = keyresultArr.map(data=> data.id);
-    console.log(objectives_id);
+
+    let keyresultArr = todos.map(data =>data.keyresults);
+    // let keyresultArr = todos.map(data=>{
+    //   return {
+    //     id:data.id,
+    //     keyresults:data.keyresults
+    //   }
+    // })
     // console.log(keyresultArr);
+    // let objectives_id = keyresultArr.map(data=> data.id);
+    // console.log(objectives_id);
+    // console.log(keyresultArr);    
     let keyresults=todos[0];
     let keyresult = keyresults.keyresults;
     // console.log(keyresults);
