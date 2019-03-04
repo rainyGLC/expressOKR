@@ -8,10 +8,10 @@ class Todokeyresult extends Base {
   }
   joinObjectAndKR(params){
     return Knex(TABLE)
-      .leftJoin('objectives','todo-keyresult.objectives_id','=','objectives.id')
       .leftJoin('keyresults','todo-keyresult.keyresult_id','=','keyresults.id')
+      .leftJoin('objectives','keyresults.objective_id','=','objectives.id')
       .select(
-        {objectives_id: 'objectives.id'}, 
+        {objectives_id: 'keyresults.objective_id'}, 
         {objectives: 'objectives.objective'},
         {keyresult: 'keyresults.keyresult'}
       )

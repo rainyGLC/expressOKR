@@ -10,7 +10,6 @@ const todokrControll = {
     try{
       let id = req.params.id;
       let todokeyresult = await Todokeyresult.joinObjectAndKR({id});
-      console.log(todokeyresult);
       let todokeyresultTemp = {};
       todokeyresult.forEach(data=>{
         if(todokeyresultTemp[data.objectives_id]){
@@ -25,6 +24,7 @@ const todokrControll = {
       let todokeyresultShow = Object.values(todokeyresultTemp);
       console.log(todokeyresultShow);
       res.json({code:200,id:id,data:todokeyresultShow})
+
     }catch(e){
       console.log(e)
       res.json({code:0,data:e})
