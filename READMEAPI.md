@@ -6,7 +6,7 @@
     "token": "077a30ac140a35bd63fbea9076863a0b"
 }
 OKR部分
-添加的接口：http://localhost:3000/api/okr
+ 添加的接口：http://localhost:3000/api/okr
 查看所有okr接口：http://localhost:3000/api/okr
 查看单个接口：http://localhost:3000/api/okr/:id
 编辑接口：http://localhost:3000/api/okr/:id
@@ -70,7 +70,7 @@ OKR部分
 
 查询 KR的接口:http://localhost:3000/api/todo-kr/:id
 请求类型：GET
-需要传入的参数为：todo.id
+需要传入的参数为：
 返回数据:
 [{
   objective: '目标名称',
