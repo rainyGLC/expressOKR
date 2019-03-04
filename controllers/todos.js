@@ -18,15 +18,26 @@ const todosControll = {
     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     let surprise = req.body.surprise;//aaa
     let todos =req.body.todos;
-    console.log(todos)
     let todosValue =[];//['项目 1', '项目 2', '项目三' ]
     let valuedata = todos.map(data=>{
       return{
         todosValue:todosValue.push(data.value)
       }
     })
+    // let keyresultArr = todos.map(data =>data.keyresults);
+    let keyresultArr = todos.map(data=>{
+      return {
+        id:data.id,
+        keyresults:data.keyresults
+      }
+    })
+    console.log(keyresultArr);
+    let objectives_id = keyresultArr.map(data=> data.id);
+    console.log(objectives_id);
+    // console.log(keyresultArr);
     let keyresults=todos[0];
-    let keyresult = keyresults.keyresults
+    let keyresult = keyresults.keyresults;
+    // console.log(keyresults);
     if(!user_id ||!todos ||!surprise){
       res.json({code:0,data:' empty'});
       return
@@ -34,7 +45,6 @@ const todosControll = {
     try{
       const todos = await Todos.insert({surprise,user_id});
       let todos_id = todos[0];
-      console.log(todos_id)
       let todosValues = todosValue.map(data=>{
         return{
           todos_id :todos_id,
@@ -43,13 +53,15 @@ const todosControll = {
       })
       const todo = await Todo.insert(todosValues);
       let todoId = todo[0];
-      console.log(todoId);
       let keyresultData = keyresult.map(data=>{
         return{
+          todos_id:todos_id,
           todo_id:todoId,
           keyresult_id:data
+          // objectives_id:objectives_id
         } 
       })
+      console.log(keyresultData);
       const keyresultId = await Todokeyresult.insert(keyresultData);
       res.json({code:200,message:'ok',todos_id:todos_id,})
     }catch(e){

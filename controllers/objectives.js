@@ -60,9 +60,9 @@ const objectivesController = {
       let mydata = new Date();
       console.log(mydata);
       if(deadline > mydata){
-        res.json({code:200,data:objectivArr})
-      }else{
         res.json({code:200,data:objectivesNodata})
+      }else{
+        res.json({code:200,data:objectivArr})
       }
     }catch(e){
       console.log(e);
