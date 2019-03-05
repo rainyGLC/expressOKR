@@ -22,11 +22,12 @@ router.get('/todo-kr/:id',todokrControll.check);
 
 
 
+
 // router.get('/todos',function(req,res,next){
-//   res.json({code:200})
+//   res.json({code:200})//返回数据
 // });
 
-
+ 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource2');
