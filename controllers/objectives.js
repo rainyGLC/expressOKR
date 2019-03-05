@@ -8,7 +8,7 @@ const objectivesController = {
   insert: async function(req,res,next){
     let objective = req.body.objective;
     let deadline = req.body.deadline;
-   let token = req.body.token;
+    let token = req.body.token;
     let keyresult = req.body.keyresult;
     console.log(objective,deadline,token,keyresult)
     if(!objective || !deadline || !token || !keyresult){
@@ -37,7 +37,6 @@ const objectivesController = {
       let token = req.query.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       const objectives = await Objective.showAll({user_id});
-      let objectivesNodata =[];
       let objectivData= {};
       objectives.forEach(data=>{
         if(objectivData[data.id]){
@@ -54,16 +53,15 @@ const objectivesController = {
           }
         }
       })
-      let objectivArr = Object.values(objectivData);
-      let deadline = objectives[0].deadline;
-      console.log(deadline);
-      let mydata = new Date();
-      console.log(mydata);
-      if(deadline > mydata){
-        res.json({code:200,data:objectivesNodata})
-      }else{
-        res.json({code:200,data:objectivArr})
-      }
+      let objectiveArr = Object.values(objectivData);
+      objectiveArr = objectiveArr.filter(function(data){
+        let date = Date.now();
+        let odate = new Date(data.deadline).getTime();
+        return odate > date
+      })
+      objectiveArr.reverse()//排序
+      console.log(objectiveArr)
+      res.json({code:200})
     }catch(e){
       console.log(e);
       res.json({code:0,data:e})

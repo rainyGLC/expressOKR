@@ -117,7 +117,7 @@ const todosControll = {
   },
   showTodos:async function(req,res,next){
     try{
-      let token = req.query.token;
+      let token = req.body.token;
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       let todos = await Todos.select({user_id});
       let todos_id = todos.map( data => data.id);
@@ -126,8 +126,6 @@ const todosControll = {
         key: 'todos_id',
         value: todos_id
       })
-      
-
       let todosObj = {}
       todos.forEach((data)=>{
         data.happness = [];
@@ -146,8 +144,6 @@ const todosControll = {
    
         todosObj[data.todos_id].todos.push(tmp)
       })
-
-
       let happiness =  await Userhappiness.selectIn({
         key: 'todos_id',
         value: todos_id
@@ -157,9 +153,9 @@ const todosControll = {
       happiness.forEach(data => {
         todosObj[data.todos_id].happness.push(data.happiness_id)
       })
-      console.log(happiness);
-
-      let result = Object.values(todosObj)
+      let result = Object.values(todosObj);
+      result.reverse();
+      console.log(result);
       res.json({code:200, data: result})
     }catch(e){
       console.log(e)

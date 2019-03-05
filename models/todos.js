@@ -18,6 +18,7 @@ class Todos extends Base {
   selectTodos(params){
     return Knex(TABLE)
     .leftJoin('todo','todos.id','=','todo.todos_id')
+    .grounpBy('user_id','desc')
     .select(
       'todos.id',
       'todos.created_at',
@@ -33,6 +34,7 @@ class Todos extends Base {
     console.log(params);
     return Knex(TABLE)
     .leftJoin('user-happiness','todos.id','=','user-happiness.todos_id')
+    .grounpBy('params','desc')
     .select(
       {'todos_id':'user-happiness.todos_id',},
       { 'happiness_id':'user-happiness.happiness_id'}
