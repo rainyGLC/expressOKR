@@ -14,7 +14,8 @@ const authCodeFunc = require('./../utils/authCode.js');
 
 const todosControll = {
   insert: async function(req,res,next){
-    let token = req.body.token;
+    let token = req.headers['x-csrf-token'];
+    console.log(token);
     let user_id = authCodeFunc(token,'DECODE').split('\t')[2];//解密token
     let surprise = req.body.surprise;//aaa
     let todos = req.body.todos;
@@ -47,7 +48,6 @@ const todosControll = {
           todos_id:todos_id,
           todo_id:todoId,
           keyresult_id:data
-
         } 
       })
       const keyresultId = await Todokeyresult.insert(keyresultData);
@@ -60,10 +60,10 @@ const todosControll = {
   showTodo:async function(req,res,next){
     try{
       let id = req.params.id;
+      console.log(id);
       const singleTodo = await Todos.selectTodo({id});
       let todosData =[];
       let surprise =singleTodo[0].surprise;
-      console.log(surprise);
       singleTodo.forEach(data=>{
         todosData[data.id]={
           id:data.id,
@@ -71,13 +71,11 @@ const todosControll = {
         }
       })
       let todosDatas = Object.values(todosData);
-      console.log(todosDatas);
       let sigleData = {
         todos:todosDatas,
         surprise:surprise
       }
-      console.log(sigleData);
-      res.json({codo:200,data:sigleData})
+      res.json({code:200,data:sigleData})
     }catch(e){
       console.log(e)
       res.json({code:0,data:e})
@@ -86,8 +84,6 @@ const todosControll = {
   editTodes:async function(req,res,next){
     let id = req.params.id;
     let todos = req.body.todos;
-    let todo_id = todos[0].id;
-    let status = todos[0].status;
     let reflect = req.body.reflect;
     let happiness = req.body.happiness;//[1,2,3]
     let happiness_id ='';
@@ -97,17 +93,17 @@ const todosControll = {
         happiness_id:data
       }
     })
-    // let happiness_id = happiness[0];
-    // console.log(happiness_id);
-    console.log(happinessData);
     if(!id || !todos ||!reflect ||!happiness){
       res.json({code:0,data:'empty'});
       return
     }
     try{
       const reflectData = await Todos.update(id,{reflect});
-      const statusData = await Todo.update(todo_id,{status});
-      // const happinessId = await Userhappiness.insert({happiness_id})
+      todos.forEach(async(data)=>{
+      let todo_id = data.id;
+      let status = data.status;
+      await Todo.update(todo_id,{status});
+      })
       const happinessId = await Userhappiness.insert(happinessData);
       res.json({code:200,message:'ok'})
     }catch(e){
@@ -117,11 +113,11 @@ const todosControll = {
   },
   showTodos:async function(req,res,next){
     try{
-      let token = req.body.token;
+      let token = req.query.tokens;
+      console.log(token)
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       let todos = await Todos.select({user_id});
       let todos_id = todos.map( data => data.id);
-
       let todo = await Todo.selectIn({
         key: 'todos_id',
         value: todos_id
@@ -132,34 +128,27 @@ const todosControll = {
         data.todos = []
         todosObj[data.id] = data
       })
-      console.log(todos);
-
       todo.forEach((data)=>{
         let tmp = {
           id: data.id,
           value: data.value,
           status: data.status
         }
-        console.log(todo);
-   
         todosObj[data.todos_id].todos.push(tmp)
       })
       let happiness =  await Userhappiness.selectIn({
         key: 'todos_id',
         value: todos_id
       })
-      // console.log(happiness)
-
       happiness.forEach(data => {
         todosObj[data.todos_id].happness.push(data.happiness_id)
       })
       let result = Object.values(todosObj);
       result.reverse();
-      console.log(result);
       res.json({code:200, data: result})
     }catch(e){
       console.log(e)
-      res.json({codo:200,data:0})
+      res.json({code:200,data:0})
     }
   }
 }

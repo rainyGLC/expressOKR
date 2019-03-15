@@ -19,7 +19,7 @@
     处理逻辑：在 objectives 中添加一条记录，同时在 keyresults 表中添加关联记录
     {
       objective: '目标名称',
-      deadline: 1550822695611,
+      deadline: ,
       keyresults: ['成就 1','成就 2']
     }
 

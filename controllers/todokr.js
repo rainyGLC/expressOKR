@@ -9,6 +9,7 @@ const todokrControll = {
   check:async function(req,res,next){
     try{
       let id = req.params.id;
+      console.log(id)
       let todokeyresult = await Todokeyresult.joinObjectAndKR({id});
       let todokeyresultTemp = {};
       todokeyresult.forEach(data=>{

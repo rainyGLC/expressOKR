@@ -8,10 +8,11 @@ const objectivesController = {
   insert: async function(req,res,next){
     let objective = req.body.objective;
     let deadline = req.body.deadline;
-    let token = req.body.token;
+    let token = req.body.tokens;
+    console.log(token);
     let keyresult = req.body.keyresult;
-    console.log(objective,deadline,token,keyresult)
-    if(!objective || !deadline || !token || !keyresult){
+    console.log(keyresult);
+    if(!objective || !deadline || !keyresult){
       res.json({code:0,data:'params empty!'});
       return
     }
@@ -34,7 +35,8 @@ const objectivesController = {
   },
   show:async function(req,res,next){
     try{
-      let token = req.query.token;
+      let token = req.query.tokens;
+      console.log(token)
       let user_id = authCodeFunc(token,'DECODE').split('\t')[2];
       const objectives = await Objective.showAll({user_id});
       let objectivData= {};
@@ -59,9 +61,9 @@ const objectivesController = {
         let odate = new Date(data.deadline).getTime();
         return odate > date
       })
-      objectiveArr.reverse()//排序
-      console.log(objectiveArr)
-      res.json({code:200})
+      // objectiveArr.reverse()//排序
+      // console.log(objectiveArr)
+      res.json({code:200,data:objectiveArr})
     }catch(e){
       console.log(e);
       res.json({code:0,data:e})
@@ -98,17 +100,32 @@ const objectivesController = {
     let objective = req.body.objective;
     let deadline = req.body.deadline;
     let keyresults = req.body.keyresults;
-    let keyresultId = keyresults[0].id;
-    let keyresult = keyresults[0].keyresult;
+    console.log(keyresults);
     if(!objective || !deadline ||!keyresults){
       res.json({code:0,data:'params empty!'});
       return
     }
     try{
       const objectives = await Objective.update(id,{objective,deadline});
-      console.log(objectives);
-      const keyResult = await Keyresult.update(keyresultId,{keyresult});
-      console.log(keyResult);
+      keyresults.forEach(async(data)=>{
+        let keyresultId = data.id;
+        let keyresult = data.keyresult;
+        if(keyresultId){
+          if(keyresult){
+            console.log('update',keyresultId)
+            await Keyresult.update(keyresultId,{keyresult});
+          }else{
+            console.log('delete',keyresultId)
+            await Keyresult.delete(keyresultId);
+          }
+        }else{
+          let objective_id = id;
+          if(keyresult){
+            console.log('insert',objective_id);
+            await Keyresult.insert({objective_id,keyresult});
+          }
+        }
+      })
       res.json({code:200,message:'ok'})
     }catch(e){
       console.log(e)
